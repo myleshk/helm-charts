@@ -5,22 +5,31 @@
 replicaCount: 1
 
 image:
-  repository: hello-world
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "alpine-slim"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-podAnnotations: {}
+podAnnotations:
+  {
+    eks.tke.cloud.tencent.com/spot-pod: "true",
+    eks.tke.cloud.tencent.com/cpu: "1",
+    eks.tke.cloud.tencent.com/mem: "1Gi",
+    eks.tke.cloud.tencent.com/root-cbs-size: "10",
+    eks.tke.cloud.tencent.com/cpu-type: "amd",
+  }
 podLabels: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -32,7 +41,8 @@ service:
   type: ClusterIP
   port: 80
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following

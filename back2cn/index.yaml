@@ -3,12 +3,12 @@ entries:
   back2cn:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-11-15T22:46:43.812321+08:00"
+    created: "2023-11-15T23:20:00.186445+08:00"
     description: A Helm chart for Kubernetes
-    digest: 51985c01dab5d19926077c74dad393545029bfa9d931d4141422b8ae32cdccd5
+    digest: 7fec08bbb7a0dc05649ebdadff17d1eb04cb55464ddbc6bc49ae345314ad609a
     name: back2cn
     type: application
     urls:
-    - https://charts.myles.hk/back2cn/charts/back2cn-0.1.0.tgz
+    - http://charts.myles.hk/back2cn/charts/back2cn-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-15T22:46:43.811941+08:00"
+generated: "2023-11-15T23:20:00.185271+08:00"
