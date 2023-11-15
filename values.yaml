@@ -1,0 +1,103 @@
+# Default values for back2cn-qcloud.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+image:
+  # repository: v2fly/v2fly-core
+  repository: hello-world
+  tag: latest
+  ## Specify a imagePullPolicy
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+
+  ## Set to true if you would like to see extra information on logs
+  ## ref:  https://github.com/bitnami/minideb-extras/#turn-on-bash-debugging
+  ##
+  debug: false
+
+replicaCount: 1
+imagePullSecrets: []
+nameOverride: "back2cn"
+fullnameOverride: "back2cn-qcloud"
+
+podAnnotations:
+  {
+    eks.tke.cloud.tencent.com/spot-pod: "true",
+    eks.tke.cloud.tencent.com/cpu: "1",
+    eks.tke.cloud.tencent.com/mem: "1Gi",
+    eks.tke.cloud.tencent.com/root-cbs-size: "10",
+    eks.tke.cloud.tencent.com/cpu-type: "amd",
+    # eks.tke.cloud.tencent.com/eip-attributes: '{"InternetMaxBandwidthOut":100, "InternetChargeType":"TRAFFIC_POSTPAID_BY_HOUR"}',
+  }
+
+## Service paramaters
+##
+# service:
+#   ## Service type
+#   ##
+#   type: LoadBalancer
+#   ## HTTP Port
+#   ##
+#   port: 80
+#   ## HTTPS Port
+#   ##
+#   httpsPort: 443
+#   ## Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.
+#   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+#   ##
+#   nodePorts:
+#     http: ""
+#     https: ""
+#   ## Set the LoadBalancer service type to internal only.
+#   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+#   ##
+#   # loadBalancerIP:
+#   ## Provide any additional annotations which may be required. This can be used to
+#   ## set the LoadBalancer service type to internal only.
+#   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+#   ##
+#   annotations: {}
+
+#   ## Enable client source IP preservation
+#   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+#   ##
+#   externalTrafficPolicy: Cluster
+
+# resources: {}
+
+## Apache container's liveness and readiness probes
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+##
+livenessProbe:
+  enabled: true
+  path: "/"
+  port: http
+  initialDelaySeconds: 180
+  periodSeconds: 20
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  path: "/"
+  port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
